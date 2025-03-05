@@ -52,21 +52,14 @@ def obtener_movimientos_disponibles(tablero):
 def movimiento_ia(tablero):
 
     movimientos_posibles = obtener_movimientos_disponibles(tablero)
+    print(movimientos_posibles)
+    for i in movimientos_posibles:
+        movimientos_posibles[i] == 
+            
     movimiento_elegido = random.choice(movimientos_posibles)
-
-    if movimientos_posibles == [2] :
-        movimiento_elegido = 2
-        return movimiento_elegido
-    elif movimientos_posibles == 4:
-        movimiento_elegido = 4
-        return movimiento_elegido
-    elif movimientos_posibles == 7:
-        movimiento_elegido = 7
-        return movimiento_elegido
-    elif movimientos_posibles == 8:
-        movimiento_elegido = 8
-        return movimiento_elegido
+    print(movimiento_elegido)
     return movimiento_elegido
+  
 
 #Bucle del juego
 def jugar():

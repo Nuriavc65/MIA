@@ -58,7 +58,7 @@ def movimiento_ia(tablero):
 
         if puntaje > mejor_puntaje:
             mejor_puntaje = puntaje
-            mejor_movimiento = movimiento + 1
+            mejor_movimiento = movimiento 
 
     return mejor_movimiento
   
@@ -72,7 +72,7 @@ def minimax(tablero, es_maximizador):
         for movimiento in obtener_movimientos_disponibles(tablero):
             tablero[movimiento] = "O"
             puntaje = minimax(tablero, False)
-            tablero[movimiento] = movimiento +1
+            tablero[movimiento] = movimiento + 1
             mejor_puntaje = max(mejor_puntaje, puntaje)
         return mejor_puntaje
     else:  #  jugador (X)
@@ -80,12 +80,10 @@ def minimax(tablero, es_maximizador):
         for movimiento in obtener_movimientos_disponibles(tablero):
             tablero[movimiento] = "X"
             puntaje = minimax(tablero, True)
-            tablero[movimiento] = movimiento +1
+            tablero[movimiento] = movimiento + 1
             peor_puntaje = min(peor_puntaje, puntaje)
         return peor_puntaje
     
-
-#Bucle del juego
 def jugar():
     tablero = [] 
     for i in range(9):

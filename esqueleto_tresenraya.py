@@ -29,8 +29,6 @@ def comprobar_ganador(tablero, jugador):
             return True
     return False
 
-#Evaluación del tablero para IA (puntuar cada estado)
-#Para usar en Algoritmo MinMax
 def evaluar_posible_jugada(tablero):
     if comprobar_ganador(tablero, "X"):  #Gana el jugador
         return -1
@@ -40,7 +38,7 @@ def evaluar_posible_jugada(tablero):
         return 0
     return None
 
-#Devuelve las posiciones libres, para quela IA no use una ocupada
+#Devuelve las posiciones libres
 def obtener_movimientos_disponibles(tablero):
     posiciones_disponibles = []
     for i in range(9):
@@ -50,27 +48,49 @@ def obtener_movimientos_disponibles(tablero):
 
 #IA: movimiento, por ahora, al azar entre las posiciones disponibles
 def movimiento_ia(tablero):
+    mejor_movimiento = None
+    mejor_puntaje = -float('inf')
 
-    movimientos_posibles = obtener_movimientos_disponibles(tablero)
-    print(movimientos_posibles)
-    for i in movimientos_posibles:
-        movimientos_posibles[i] == 
-            
-    movimiento_elegido = random.choice(movimientos_posibles)
-    print(movimiento_elegido)
-    return movimiento_elegido
+    for movimiento in obtener_movimientos_disponibles(tablero):
+        tablero[movimiento] = "O"
+        puntaje = minimax(tablero, False)
+        tablero[movimiento] = movimiento  # Deshacer movimiento
+
+        if puntaje > mejor_puntaje:
+            mejor_puntaje = puntaje
+            mejor_movimiento = movimiento
+
+    return mejor_movimiento
   
+def minimax(tablero, es_maximizador):
+    puntuacion = evaluar_posible_jugada(tablero)
+    if puntuacion is not None:
+        return puntuacion
+    
+    if es_maximizador:  
+        mejor_puntaje = -float('inf')
+        for movimiento in obtener_movimientos_disponibles(tablero):
+            tablero[movimiento] = "O"
+            puntaje = minimax(tablero, False)
+            tablero[movimiento] = movimiento  
+            mejor_puntaje = max(mejor_puntaje, puntaje)
+        return mejor_puntaje
+    else:  # Turno del jugador (X)
+        peor_puntaje = float('inf')
+        for movimiento in obtener_movimientos_disponibles(tablero):
+            tablero[movimiento] = "X"
+            puntaje = minimax(tablero, True)
+            tablero[movimiento] = movimiento
+            peor_puntaje = min(peor_puntaje, puntaje)
+        return peor_puntaje
+    
 
 #Bucle del juego
 def jugar():
-
     tablero = [] 
     for i in range(9):
         tablero.append((i+1))
-
     turno_jugador = True  #Empiezas a jugar tú, en la consola
-    
-    #Continuamos mientras queden números en el array
     while any(isinstance(i, (int)) for i in tablero):  
         pintar_tablero(tablero)  #PIntamos el tablero
         
